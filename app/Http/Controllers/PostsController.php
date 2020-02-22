@@ -4,19 +4,18 @@ namespace App\Http\Controllers;
 
 class PostsController extends Controller
 {
-    public function show($key)
+    public function show($slug)
     {
-        $posts = [
-            'my-first-post' => 'hogehoge',
-            'my-second-post' => 'poyopoyo',
-        ];
+        $post = \DB::table('posts')->where('slug', $slug)->first();
 
-        if (!array_key_exists($key, $posts)) {
-            abort(404, 'Sorry, that page was not found.');
-        }
+        // dd($post); // debug
+
+        // if (!array_key_exists($slug, $posts)) {
+        //     abort(404, 'Sorry, that page was not found.');
+        // }
 
         return view('post', [
-            'post' => $posts[$key],
+            'post' => $post,
         ]);
     }
 }
