@@ -56,3 +56,7 @@ Route::get('/items/{id}', function ($id) {
 });
 
 Route::get('/posts/{key}', 'PostsController@show');
+
+Route::get('/contact', function () {
+    return view('contact');
+});
