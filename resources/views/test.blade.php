@@ -8,8 +8,20 @@
     <title>po</title>
   </head>
   <body>
-    <h1>
-      Test Complete!
-    </h1>
+    {{-- escape --}}
+    <div>
+      Hello, {{ $name }} !
+    </div>
+    <div>
+      Hello, <?= htmlspecialchars($name, ENT_QUOTES) ?> !
+    </div>
+
+    {{-- no escape --}}
+    <div>
+      Hello, {!! $name !!} !
+    </div>
+    <div>
+      Hello, <?= $name ?> !
+    </div>
   </body>
 </html>
