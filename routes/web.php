@@ -30,3 +30,27 @@ Route::get('/', function () {
         'name' => $name,
     ]);
 });
+
+Route::get('/posts/{key}', function ($key) {
+    // 連想配列
+    $posts = [
+        'my-first-post' => 'hogehoge',
+        'my-second-post' => 'poyopoyo',
+    ];
+
+    if (!array_key_exists($key, $posts)) {
+        abort(404, 'Sorry, that page was not found.');
+    }
+
+    return view('post', [
+        'post' => $posts[$key],
+    ]);
+});
+Route::get('/items/{id}', function ($id) {
+    // 配列
+    $items = ['apple', 'orange', 'banana'];
+    if (!array_key_exists($id, $items)) {
+        abort(404, 'Sorry, that page was not found.');
+    }
+    return $items[$id];
+});
