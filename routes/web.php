@@ -11,6 +11,15 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/welcome', function() {
     return view('welcome');
+});
+Route::get('/test', function(){
+    return view('test');
+});
+Route::get('/test/string', function(){
+    return 'Hello, World!';
+});
+Route::get('/test/json', function() {
+    return ['foo' => 'bar', 'po' => 'poyo'];
 });
