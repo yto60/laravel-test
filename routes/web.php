@@ -31,21 +31,21 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/posts/{key}', function ($key) {
-    // 連想配列
-    $posts = [
-        'my-first-post' => 'hogehoge',
-        'my-second-post' => 'poyopoyo',
-    ];
+// Route::get('/posts/{key}', function ($key) {
+//     // 連想配列
+//     $posts = [
+//         'my-first-post' => 'hogehoge',
+//         'my-second-post' => 'poyopoyo',
+//     ];
 
-    if (!array_key_exists($key, $posts)) {
-        abort(404, 'Sorry, that page was not found.');
-    }
+//     if (!array_key_exists($key, $posts)) {
+//         abort(404, 'Sorry, that page was not found.');
+//     }
 
-    return view('post', [
-        'post' => $posts[$key],
-    ]);
-});
+//     return view('post', [
+//         'post' => $posts[$key],
+//     ]);
+// });
 Route::get('/items/{id}', function ($id) {
     // 配列
     $items = ['apple', 'orange', 'banana'];
@@ -54,3 +54,5 @@ Route::get('/items/{id}', function ($id) {
     }
     return $items[$id];
 });
+
+Route::get('/posts/{key}', 'PostsController@show');
