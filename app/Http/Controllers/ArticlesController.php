@@ -15,10 +15,9 @@ class ArticlesController extends Controller
     }
 
     // show a single resource
-    public function show($id)
+    public function show(Article $article)
     {
-        $article = Article::find($id);
-
+        // Leverage Route Model Binding
         return view('articles.show', [
             'article' => $article,
         ]);
@@ -33,18 +32,8 @@ class ArticlesController extends Controller
     // persist the new resource
     public function store()
     {
-        request()->validate([
-            'title' => ['required', 'max:255'],
-            'excerpt' => 'required',
-            'body' => 'required',
-        ]);
-        $article = new Article();
-
-        $article->title = request('title');
-        $article->excerpt = request('excerpt');
-        $article->body = request('body');
-
-        $article->save();
+        $validatedAttributes = $this->validateArticle();
+        Article::create($validatedAttributes);
 
         return redirect('/articles');
     }
@@ -52,7 +41,7 @@ class ArticlesController extends Controller
     // shows a view to edit an existing resource
     public function edit($id)
     {
-        $article = Article::find($id);
+        $article = Article::findOrFail($id);
 
         // return view('articles.edit', [
         //     'article' => $article,
@@ -63,19 +52,11 @@ class ArticlesController extends Controller
     // persist the edited resource
     public function update($id)
     {
-        request()->validate([
-            'title' => ['required', 'max:255'],
-            'excerpt' => 'required',
-            'body' => 'required',
-        ]);
+        $validatedAttributes = $this->validateArticle();
 
-        $article = Article::find($id);
+        $article = Article::findOrFail($id);
 
-        $article->title = request('title');
-        $article->excerpt = request('excerpt');
-        $article->body = request('body');
-
-        $article->save();
+        $article->update($validatedAttributes);
 
         return redirect('/articles/' . $id);
     }
@@ -84,5 +65,14 @@ class ArticlesController extends Controller
     public function destroy()
     {
 
+    }
+
+    protected function validateArticle()
+    {
+        return request()->validate([
+            'title' => ['required', 'max:255'],
+            'excerpt' => 'required',
+            'body' => 'required',
+        ]);
     }
 }
