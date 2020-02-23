@@ -60,3 +60,12 @@ Route::get('/posts/{key}', 'PostsController@show');
 Route::get('/contact', function () {
     return view('contact');
 });
+
+Route::get('/articles', function () {
+    $articles = App\Article::latest()->take(2)->get();
+    // $articles = App\Article::paginate(2);
+
+    return view('articles', [
+        'articles' => $articles,
+    ]);
+});
