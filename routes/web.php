@@ -71,5 +71,7 @@ Route::get('/articles', function () {
 });
 
 Route::get('/articles/create', 'ArticlesController@create');
+Route::get('/articles/edit/{id}', 'ArticlesController@edit');
 Route::get('/articles/{id}', 'ArticlesController@show');
+Route::put('/articles/{id}', 'ArticlesController@update');
 Route::post('/articles', 'ArticlesController@store');
