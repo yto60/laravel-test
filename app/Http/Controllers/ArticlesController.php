@@ -58,7 +58,8 @@ class ArticlesController extends Controller
 
         $article->update($validatedAttributes);
 
-        return redirect('/articles/' . $id);
+        return redirect($article->path());
+        // return route('articles.show', $this->id); と等価 (path() は Article.php で定義)
     }
 
     // delete the resource
